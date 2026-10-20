@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Homepage of Yongjin Hong">
+<title>Yongjin Hong</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky left sidebar (profile + nav) + single reading column, collapses to one column on phones */
+:root{
+  --bg:#fbfcfd; --surface:#f1f4f7; --fg:#1b232c; --muted:#5b6774; --rule:#dde3e9;
+  --accent:#1f5f8b; --accent-soft:#e3edf5;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --surface:#1a2129; --fg:#e3e8ee; --muted:#9aa6b3; --rule:#2a333d;
+  --accent:#7db4dc; --accent-soft:#1d2d3b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --surface:#1a2129; --fg:#e3e8ee; --muted:#9aa6b3; --rule:#2a333d;
+  --accent:#7db4dc; --accent-soft:#1d2d3b; color-scheme:dark}
+
+*{box-sizing:border-box}
+img{max-width:100%}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.65}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+.wrap{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:240px minmax(0,1fr);gap:64px;
+  padding-block:56px 80px;
+  padding-left:max(24px, env(safe-area-inset-left,0px));padding-right:max(24px, env(safe-area-inset-right,0px))}
+
+/* Sidebar */
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 40px);align-self:start;display:flex;flex-direction:column;gap:20px}
+.photo{width:148px;aspect-ratio:1;max-width:100%;border-radius:50%;background:var(--surface);border:1px solid var(--rule);
+  display:block;height:auto;object-fit:cover;object-position:center 30%}
+.name{font-family:var(--f-display);font-weight:600;font-size:30px;line-height:1.15;margin:0;text-wrap:balance}
+.name small{display:block;font-family:var(--f-body);font-weight:400;font-size:15px;color:var(--muted);margin-top:4px}
+.role{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
+.email{font-family:var(--f-mono);font-size:13px;color:var(--fg);user-select:all}
+.links{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;font-weight:600}
+nav ul{list-style:none;margin:0;padding:14px 0 0;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:4px}
+nav a{color:var(--muted);font-size:14px}
+nav a:hover{color:var(--accent)}
+
+/* Main */
+main{display:flex;flex-direction:column;gap:52px;min-width:0}
+section{scroll-margin-top:32px}
+h2{font-family:var(--f-display);font-weight:500;font-size:24px;margin:0 0 18px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+p{margin:0 0 14px;max-width:66ch}
+p:last-child{margin-bottom:0}
+.ph{background:var(--accent-soft);color:var(--fg);padding:0 4px;border-radius:3px}
+
+
+/* Dated lists */
+.list{display:flex;flex-direction:column;gap:20px;margin:0;padding:0;list-style:none}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 24px}
+.item .t{font-weight:600}
+.item .d{font-family:var(--f-mono);font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.item .s{grid-column:1/-1;color:var(--muted);font-size:15px}
+
+.news{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px 20px;margin:0}
+.news dt{font-family:var(--f-mono);font-size:13px;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.news dd{margin:0}
+
+.proj .top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 24px}
+.proj .t{font-weight:600}
+.proj .top .d{font-family:var(--f-mono);font-size:13px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.proj .meta{font-size:14px;color:var(--muted);font-style:italic}
+.proj .desc{font-size:15px;margin-top:4px;max-width:66ch}
+.proj .acts{font-size:14px;margin-top:4px;display:flex;gap:12px}
+
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px}
+
+@media (max-width:760px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:40px;padding-block:32px 56px;
+    padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
+  aside{position:static;display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 18px;align-items:center}
+  .photo{width:96px;grid-row:span 2}
+  .name{font-size:26px}
+  .role,.email,.links,nav{grid-column:1/-1}
+  nav ul{flex-direction:row;flex-wrap:wrap;gap:4px 16px}
+  .news{grid-template-columns:minmax(0,1fr);gap:2px}
+  .news dd{margin-bottom:10px}
+  .item,.proj .top{grid-template-columns:minmax(0,1fr)}
+  .item .d,.proj .top .d{grid-row:2}
+  .item .s{grid-row:3}
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <aside>
+    <img class="photo" src="profile.jpg" alt="Yongjin Hong" width="148" height="148">
+    <h1 class="name">Yongjin Hong<small>홍용진</small></h1>
+    <p class="role">Data Analyst, RealData Inc.<br>B.B.A., Korea University</p>
+    <span class="email">doubt4230 [at] gmail.com<br>doubt4230 [at] naver.com</span>
+    <div class="links">
+      <a href="cv.pdf">CV</a><a href="https://github.com/yongjin-hong">GitHub</a>
+    </div>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="about">
+      <h2>About</h2>
+      <p>I am a Data Analyst in the Analytics Consulting Division at RealData Inc. I received my Bachelor of Business Administration from Korea University, and I am preparing to pursue an M.S. degree in AI / data science.</p>
+      <p>Coming from business administration, I see management as a problem of decision-making, and I want to make those decisions more effective by grounding them in data. This motivates my research interests in <strong>data-driven decision-making</strong>, particularly <strong>causal inference</strong>, <strong>optimization</strong>, and <strong>sequential decision-making under uncertainty</strong>.</p>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <ul class="list">
+        <li class="item">
+          <span class="t">Korea University</span><span class="d">Mar 2019 – Aug 2025</span>
+          <span class="s">Bachelor of Business Administration, with Honors · GPA 3.91 / 4.5</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <ul class="list">
+        <li class="item">
+          <span class="t">RealData Inc.</span><span class="d">Mar 2025 – Present</span>
+          <span class="s">Data Analyst, Analytics Consulting Division</span>
+        </li>
+        <li class="item">
+          <span class="t">Business Analytics Student Society BADA, Korea University</span><span class="d">Sep 2023 – Jun 2024</span>
+          <span class="s">Member (Sep – Dec 2023), President (Jan – Jun 2024)<br>Led sessions on regression, classification, and NLP</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul class="list">
+        <li class="proj">
+          <div class="top"><span class="t">Payout Rate Effect Analysis for Sports Betting Tickets (Proto)</span><span class="d">Sep 2025 – Jan 2026</span></div>
+          <div class="meta">RealData for Korea Sports Promotion Foundation (KSPO)</div>
+          <div class="desc">Estimated the effect of the posted payout rate on sales and built a simulator to support revenue-improvement policy decisions.</div>
+        </li>
+        <li class="proj">
+          <div class="top"><span class="t">Marketing Consent Withdrawal Prediction Model</span><span class="d">Mar 2025 – Jun 2025</span></div>
+          <div class="meta">RealData for KB Securities</div>
+          <div class="desc">Predicted customers likely to withdraw marketing consent, enabling proactive retention campaigns.</div>
+        </li>
+        <li class="proj">
+          <div class="top"><span class="t">Manufacturing Defect Detection Model</span><span class="d">Dec 2024 – Jan 2025</span></div>
+          <div class="meta">LIKELION Data Analytics Bootcamp Datathon</div>
+          <div class="desc">Built a semi-supervised defect detection model to compensate for scarce labels.</div>
+        </li>
+        <li class="proj">
+          <div class="top"><span class="t">Effect of Job Satisfaction on Turnover Intention among Gen Z Workers</span><span class="d">Dec 2023 – Feb 2024</span></div>
+          <div class="meta">Business Analytics Student Society BADA</div>
+          <div class="desc">Estimated the effect of job satisfaction on turnover intention using Korean corporate panel data.</div>
+        </li>
+      </ul>
+    </section>
+
+    <footer>Last updated: Oct 2026</footer>
+  </main>
+</div>
+
+</body>
+</html>
